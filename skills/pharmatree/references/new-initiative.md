@@ -15,9 +15,23 @@ Derivados:
 
 Se algum dado faltar, **pergunte** antes de criar.
 
+> **Sempre pergunte QUAIS repos incluir.** Mesmo que o usuário não tenha
+> especificado, **não assuma** a lista de `repos` — descubra os repos disponíveis na
+> base (passo 1) e **pergunte explicitamente** ao usuário quais ele quer clonar como
+> worktree nesta frente. Só siga para a criação depois da resposta.
+
 ## Passos
 
 1. **Posicione-se na raiz da base** (a pasta que contém `worktrees/` e os repos raiz).
+
+1b. **Liste os repos disponíveis e pergunte quais incluir.** Detecte os repos raiz
+   (cada subpasta que é um repositório git, excluindo `worktrees/`):
+
+   ```bash
+   for d in */; do [ -d "$d/.git" ] && echo "${d%/}"; done
+   ```
+   Apresente essa lista ao usuário e **pergunte quais repos** ele quer para a frente.
+   Use **apenas os repos confirmados** como a lista `repos` dos próximos passos.
 
 2. **Crie a pasta da frente**
 
