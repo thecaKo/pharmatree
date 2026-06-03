@@ -1,8 +1,8 @@
 ---
-name: pharmatree
+name: helix
 description: >-
   Use ao trabalhar numa base multi-repo organizada com worktrees (estrutura
-  pharmatree). Dispara quando o agente precisa SE LOCALIZAR ("onde estou", "qual
+  helix). Dispara quando o agente precisa SE LOCALIZAR ("onde estou", "qual
   repo/branch é esse", "retomar frente"), CRIAR uma frente nova multi-repo
   ("nova frente", "criar worktree"), VERIFICAR antes de commitar ("antes de
   commitar", "git commit", "posso commitar aqui"), CRIAR/REVISAR uma PR ("criar PR",
@@ -14,7 +14,7 @@ description: >-
   seja respeitado.
 ---
 
-# pharmatree — orquestração multi-repo com worktrees
+# helix — orquestração multi-repo com worktrees
 
 Framework para trabalhar em **várias frentes ao mesmo tempo** sobre **múltiplos
 repositórios**, usando git worktrees, sem nunca tocar nos repos raiz nem commitar
@@ -62,7 +62,7 @@ Mapeamento determinístico pasta↔branch: trocar o **primeiro** `-` por `/`.
 ## Workflow de desenvolvimento (superpowers)
 
 **Pré-requisito:** o plugin [superpowers](https://github.com/obra/superpowers) deve
-estar instalado para Claude. O pharmatree organiza *onde* o trabalho acontece; o
+estar instalado para Claude. O helix organiza *onde* o trabalho acontece; o
 superpowers organiza *como*. Use as skills do superpowers em cada fase:
 
 | Fase | Skill superpowers |

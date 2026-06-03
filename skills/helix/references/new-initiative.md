@@ -1,7 +1,7 @@
 # Procedimento: nova-frente (criar frente multi-repo consistente)
 
 Use para abrir uma nova frente de trabalho que atravessa 1+ repos, seguindo a
-convenção de nomes do pharmatree.
+convenção de nomes do helix.
 
 ## Entradas necessárias
 
