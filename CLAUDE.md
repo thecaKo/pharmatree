@@ -23,9 +23,21 @@ da raiz e siga-o.**
 O `design.md` cobre as telas **Login**, **Dashboard (v2)** e **PharmaConnector**
 do `web-pharmachatbot`.
 
+## Mapa de frentes ativas
+
+| Frente | Repos | Branch | Status |
+|---|---|---|---|
+| feat-atendimentos-v2-reborn | web-pharmachatbot, neo-api-pharmachatbot, api-pharmachatbot, api-baileys-pharmachatbot, messaging-pharmachatbot | feat/atendimentos-v2-reborn | em andamento — tela de Atendimentos v2 ("reborn") sob feature flag |
+
 ## Skill pharmatree
 
 Para orquestração multi-repo (criar frente, localizar-se, commitar, fechar feature,
 reparar worktrees), invoque a skill `pharmatree`. Workflow de desenvolvimento usa o
 plugin superpowers (brainstorming → writing-plans → TDD → verification →
 finishing-a-development-branch).
+
+**Ao criar worktrees, sempre:**
+- **Instalar as dependências** em cada worktree (detectando o gerenciador pelo
+  lockfile — pnpm/yarn/npm/poetry/pip — sem assumir npm).
+- **Copiar `.env` e `.env.test`** do repo raiz para a worktree **apenas se
+  existirem** na raiz; caso contrário, não copiar nada.

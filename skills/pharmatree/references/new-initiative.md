@@ -55,6 +55,31 @@ Se algum dado faltar, **pergunte** antes de criar.
    git -C <repo> worktree add "worktrees/<type>-<slug>/<repo>" "<type>/<slug>"
    ```
 
+3b. **Copie os arquivos de ambiente** do repo raiz para a worktree, **apenas se
+   existirem** (`.env` e `.env.test` ficam fora do git, então não vêm na worktree).
+   Para cada repo, copie só o que existir — se não houver, não faça nada:
+
+   ```bash
+   for f in .env .env.test; do
+     [ -f "<repo>/$f" ] && cp "<repo>/$f" "worktrees/<type>-<slug>/<repo>/$f"
+   done
+   ```
+
+3c. **Instale as dependências** em cada worktree, detectando o gerenciador pelo
+   lockfile (não assuma npm). Rode dentro da pasta da worktree do repo:
+
+   ```bash
+   cd "worktrees/<type>-<slug>/<repo>"
+   if   [ -f pnpm-lock.yaml ];     then pnpm install
+   elif [ -f yarn.lock ];          then yarn install
+   elif [ -f package-lock.json ];  then npm ci || npm install
+   elif [ -f package.json ];       then npm install
+   elif [ -f poetry.lock ];        then poetry install
+   elif [ -f requirements.txt ];   then pip install -r requirements.txt
+   fi
+   ```
+   Se o repo não tiver manifesto de dependências reconhecido, pule esta etapa.
+
 4. **Gere o `CLAUDE.md` por-repo-worktree** em cada
    `worktrees/<type>-<slug>/<repo>/CLAUDE.md`, a partir de
    `templates/CLAUDE.worktree.md`, preenchendo: frente, repo origem, branch, papel
