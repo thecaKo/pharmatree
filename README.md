@@ -5,6 +5,46 @@ same time** using git worktrees, built for AI agents (Claude / Codex / Cursor). 
 shell scripts, no git hooks, no runtime: the intelligence lives in a **skill**, and
 the source of truth is always **live git**.
 
+## Quickstart
+
+### Setup (once, per base)
+
+1. **Install superpowers** for Claude (prerequisite — the development workflow).
+2. **Install the skill** in your base:
+   ```bash
+   mkdir -p <base>/.claude/skills
+   ln -s <path>/pharmatree/skills/pharmatree <base>/.claude/skills/pharmatree
+   ```
+3. **Create the orchestrator** at the base root:
+   ```bash
+   cp <path>/pharmatree/templates/CLAUDE.root.md <base>/CLAUDE.md
+   ln -sf CLAUDE.md <base>/AGENTS.md
+   ```
+   Fill in repos, roles, and the Active Initiatives map.
+4. **Restart** your Claude Code session so the skill becomes invocable.
+5. Type **`/pharmatree`** (or just ask in natural language) — you're ready.
+
+### Cheatsheet — what you say → what happens
+
+| You say… | Procedure | What happens |
+|---|---|---|
+| "create initiative `feat relatorios-saldo` in repos web, neo-api" | `new-initiative` | Creates `worktrees/feat-relatorios-saldo/{web,neo-api}` on branch `feat/relatorios-saldo` + generates each `CLAUDE.md`/`AGENTS.md` + updates the map |
+| "where am I?" / "I'm lost" / "resume" | `where-am-i` | Reports current initiative, origin repo, branch, goal + other active initiatives |
+| "can I commit?" / "commit this" | `guard` | Checks folder==branch, blocks protected branches, **runs unit tests**, then commits (pt-br, conventional, subject-only) |
+| "I finished the feature" | `finish-feature` | Probes if the test env is up; if so runs integration tests; if not, lists what to start (never provisions infra) |
+| "fix the worktrees" / "prunable" | `doctor` | `git worktree repair` + regenerates the Active Initiatives map |
+
+### Typical feature lifecycle
+
+```
+brainstorming → writing-plans          (superpowers — the "how")
+  → /pharmatree new-initiative          (creates worktrees + branch)
+  → implement via TDD                   (superpowers)
+  → /pharmatree guard   (unit tests + commit)  ⟲ repeat per task
+  → /pharmatree finish-feature          (integration tests)
+  → finishing-a-development-branch       (merge / PR)
+```
+
 ## Why
 
 When a single line of work spans 3+ repositories, it's easy to:
