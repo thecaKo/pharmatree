@@ -5,7 +5,8 @@ description: >-
   pharmatree). Dispara quando o agente precisa SE LOCALIZAR ("onde estou", "qual
   repo/branch é esse", "retomar frente"), CRIAR uma frente nova multi-repo
   ("nova frente", "criar worktree"), VERIFICAR antes de commitar ("antes de
-  commitar", "git commit", "posso commitar aqui"), FECHAR uma feature ("terminei a
+  commitar", "git commit", "posso commitar aqui"), REVISAR uma PR ("abri a PR",
+  "revisar a PR", "roda os agentes na PR"), FECHAR uma feature ("terminei a
   feature", "fim de feature", "rodar integration tests") ou REPARAR worktrees
   quebradas ("worktree prunable", "git worktree quebrado", "sincronizar mapa").
   Garante que o agente nunca commite no repo raiz nem na branch/pasta errada e que
@@ -72,6 +73,7 @@ superpowers organiza *como*. Use as skills do superpowers em cada fase:
 | Bug / falha de teste / comportamento estranho | `superpowers:systematic-debugging` |
 | Antes de afirmar "pronto/passa" ou commitar | `superpowers:verification-before-completion` |
 | Pedir/receber code review | `superpowers:requesting-code-review` · `superpowers:receiving-code-review` |
+| Após abrir a PR (review multi-agente por dimensão) | **review-pr** (`references/review-pr.md`) — complementa o code review acima |
 | Fechar a branch (merge/PR/cleanup) | `superpowers:finishing-a-development-branch` |
 
 Fluxo típico de uma frente: `brainstorming` → `writing-plans` → (por task) `TDD` /
@@ -85,6 +87,7 @@ Fluxo típico de uma frente: `brainstorming` → `writing-plans` → (por task) 
 | "Onde estou? Qual repo/branch? Me perdi / retomar" | **where-am-i** | `references/where-am-i.md` |
 | "Criar uma frente nova multi-repo" | **new-initiative** | `references/new-initiative.md` |
 | "Vou commitar / posso commitar aqui?" | **guard** | `references/guard.md` |
+| "Abri a PR / revisar a PR / roda os agentes na PR" | **review-pr** | `references/review-pr.md` |
 | "Terminei a feature / rodar integration tests" | **finish-feature** | `references/finish-feature.md` |
 | "Worktree quebrada / prunable / sincronizar mapa" | **doctor** | `references/doctor.md` |
 
