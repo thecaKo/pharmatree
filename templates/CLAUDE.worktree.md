@@ -13,12 +13,21 @@
 
 <1-2 linhas: o que esta frente entrega, no contexto deste repo.>
 
+## Comandos de teste (preencher por repo)
+
+- **Testes unitários:** `<ex.: pnpm vitest:unit>` — rodados pelo `guard` antes de cada commit.
+- **Testes de integração:** `<ex.: pnpm vitest:integration>` — rodados pelo `finish-feature` ao fim da feature.
+- **Ambiente de integração (health-check read-only):** `<ex.: docker ps | grep mysql-...test ; comando de ping do banco>`
+  — o agente só roda integração se isto indicar ambiente pronto; nunca sobe infra.
+
 ## ⛔ Regra local
 
 - Commit **só aqui**, na branch **`<type>/<slug>`**.
 - **Não** toque no repo raiz `<repo>/` (origem) — ele é imutável.
-- Antes de commitar, rode o `guard` da skill `pharmatree` (branch protegida e
-  pasta==branch são bloqueadas).
+- Antes de commitar, rode o `guard` da skill `pharmatree` (branch protegida,
+  pasta==branch e **unit tests verdes** são exigidos).
+- Commits em **pt-br**, conventional, **subject-only** (sem body) + footer Co-Author.
+- Ao fim da feature, rode o `finish-feature` (testes de integração).
 
 ## Contexto multi-repo
 

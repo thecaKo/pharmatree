@@ -5,9 +5,12 @@ description: >-
   pharmatree). Dispara quando o agente precisa SE LOCALIZAR ("onde estou", "qual
   repo/branch é esse", "retomar frente"), CRIAR uma frente nova multi-repo
   ("nova frente", "criar worktree"), VERIFICAR antes de commitar ("antes de
-  commitar", "git commit", "posso commitar aqui") ou REPARAR worktrees quebradas
-  ("worktree prunable", "git worktree quebrado", "sincronizar mapa"). Garante que
-  o agente nunca commite no repo raiz nem na branch/pasta errada.
+  commitar", "git commit", "posso commitar aqui"), FECHAR uma feature ("terminei a
+  feature", "fim de feature", "rodar integration tests") ou REPARAR worktrees
+  quebradas ("worktree prunable", "git worktree quebrado", "sincronizar mapa").
+  Garante que o agente nunca commite no repo raiz nem na branch/pasta errada e que
+  o fluxo de testes (unitários antes de commitar, integração ao fim da feature)
+  seja respeitado.
 ---
 
 # pharmatree — orquestração multi-repo com worktrees
@@ -35,7 +38,7 @@ no lugar errado.
 | Pasta da frente | `<type>-<slug-kebab>` | `feat-atendimentos-grupos` |
 | Branch (a MESMA em todos os repos da frente) | `<type>/<slug-kebab>` | `feat/atendimentos-grupos` |
 | Subpasta do repo | nome **exato** do repo origem | `web-pharmachatbot` |
-| Mensagem de commit | conventional, **subject-only** + footer Co-Author | `feat: adiciona X` |
+| Mensagem de commit | **pt-br**, conventional, **subject-only** (sem body) + footer Co-Author | `feat: adiciona X` |
 
 `type` ∈ `feat` · `fix` · `refactor` · `chore` · `docs` · `test` · `perf` · `build` · `ci`.
 Mapeamento determinístico pasta↔branch: trocar o **primeiro** `-` por `/`.
@@ -44,8 +47,34 @@ Mapeamento determinístico pasta↔branch: trocar o **primeiro** `-` por `/`.
 
 1. **Repos raiz NUNCA recebem commit.** Todo trabalho vive em `worktrees/<frente>/<repo>/`.
 2. **Uma frente = uma branch** `<type>/<slug>` atravessando seus repos.
-3. **Antes de QUALQUER commit**, rode o procedimento `guard` (abaixo).
-4. **A verdade vem do git ao vivo** (`git rev-parse`), nunca de um arquivo salvo.
+3. **Antes de QUALQUER commit**, rode o procedimento `guard` — que inclui rodar a
+   **bateria de testes unitários** (deve passar) antes de commitar.
+4. **Ao fim de cada feature**, rode o procedimento `finish-feature` — que roda os
+   **testes de integração** (apenas se o ambiente já estiver pronto; o agente nunca
+   sobe infra por conta própria).
+5. **Commits em pt-br**, conventional commits, **subject-only** (sem body) + footer
+   Co-Author.
+6. **A verdade vem do git ao vivo** (`git rev-parse`), nunca de um arquivo salvo.
+
+## Workflow de desenvolvimento (superpowers)
+
+**Pré-requisito:** o plugin [superpowers](https://github.com/obra/superpowers) deve
+estar instalado para Claude. O pharmatree organiza *onde* o trabalho acontece; o
+superpowers organiza *como*. Use as skills do superpowers em cada fase:
+
+| Fase | Skill superpowers |
+|---|---|
+| Antes de criar feature/ideia | `superpowers:brainstorming` |
+| Transformar spec em plano | `superpowers:writing-plans` |
+| Implementar (sempre via testes) | `superpowers:test-driven-development` |
+| Bug / falha de teste / comportamento estranho | `superpowers:systematic-debugging` |
+| Antes de afirmar "pronto/passa" ou commitar | `superpowers:verification-before-completion` |
+| Pedir/receber code review | `superpowers:requesting-code-review` · `superpowers:receiving-code-review` |
+| Fechar a branch (merge/PR/cleanup) | `superpowers:finishing-a-development-branch` |
+
+Fluxo típico de uma frente: `brainstorming` → `writing-plans` → (por task) `TDD` /
+`systematic-debugging` → `guard` (testes unitários + commit) → repetir → ao fim:
+`finish-feature` (testes de integração) → `finishing-a-development-branch`.
 
 ## Roteamento — escolha o procedimento
 
@@ -54,6 +83,7 @@ Mapeamento determinístico pasta↔branch: trocar o **primeiro** `-` por `/`.
 | "Onde estou? Qual repo/branch? Me perdi / retomar" | **where-am-i** | `references/where-am-i.md` |
 | "Criar uma frente nova multi-repo" | **new-initiative** | `references/new-initiative.md` |
 | "Vou commitar / posso commitar aqui?" | **guard** | `references/guard.md` |
+| "Terminei a feature / rodar integration tests" | **finish-feature** | `references/finish-feature.md` |
 | "Worktree quebrada / prunable / sincronizar mapa" | **doctor** | `references/doctor.md` |
 
 Leia o arquivo de referência correspondente e siga-o passo a passo. Em dúvida sobre

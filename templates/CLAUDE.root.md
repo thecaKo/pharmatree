@@ -19,8 +19,13 @@ quando estiver alternando entre frentes.
 2. **Uma frente = uma branch** `<type>/<slug>` (conventional commits), a **mesma**
    em todos os repos daquela frente.
 3. **Antes de QUALQUER commit nesta base, invoque a skill `pharmatree`** e siga o
-   procedimento `guard`.
-4. Se você se perder ("onde estou? que repo/branch é esse?"), invoque a skill
+   procedimento `guard` — que **roda os testes unitários** (devem passar) antes de commitar.
+4. **Commits em pt-br**, conventional commits, **subject-only** (sem body) + footer Co-Author.
+5. **Ao fim de cada feature**, invoque `pharmatree` → `finish-feature` (testes de
+   integração; só rodam se o ambiente já estiver pronto — o agente não sobe infra).
+6. **Workflow de desenvolvimento usa o [superpowers](https://github.com/obra/superpowers)**
+   (brainstorming → writing-plans → TDD → verification → finishing-a-development-branch).
+7. Se você se perder ("onde estou? que repo/branch é esse?"), invoque a skill
    `pharmatree` → procedimento `where-am-i`.
 
 ## Topologia
@@ -59,5 +64,6 @@ footer de co-autoria.
 |---|---|
 | me localizar / retomar uma frente | `where-am-i` |
 | criar uma frente nova multi-repo | `new-initiative` |
-| commitar (checklist obrigatório) | `guard` |
+| commitar (checklist + unit tests) | `guard` |
+| fechar feature (integration tests) | `finish-feature` |
 | consertar worktree quebrada / sincronizar este mapa | `doctor` |

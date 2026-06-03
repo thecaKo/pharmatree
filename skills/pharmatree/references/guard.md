@@ -36,14 +36,26 @@ reporte**; não commite.
    - Branch esperada = `<frente>` com o **primeiro** `-` trocado por `/`.
    - A branch atual DEVE ser igual à esperada. Divergência silenciosa → **BLOQUEIA**.
 
+5. **Testes unitários passam** (obrigatório)
+
+   Rode a bateria de testes unitários do repo desta worktree. O comando vem do
+   `CLAUDE.md` da worktree (campo "Testes unitários"); se não declarado, descubra pelo
+   `package.json`/configuração do projeto (ex.: `pnpm vitest:unit`, `npm test`).
+   Se **falhar** → **BLOQUEIA**: conserte (use `superpowers:systematic-debugging`)
+   antes de commitar. Não commite com unit test vermelho.
+
+   Antes de afirmar que passou, aplique `superpowers:verification-before-completion`:
+   evidência (saída real do teste) antes de qualquer afirmação de sucesso.
+
 ## Se tudo passar
 
 Reporte e prossiga:
 
-> ✅ commit liberado — frente `<type>-<slug>`, repo `<repo>`, branch `<type>/<slug>`.
+> ✅ commit liberado — frente `<type>-<slug>`, repo `<repo>`, branch `<type>/<slug>`,
+> unit tests verdes.
 
-Mensagem de commit: **conventional + subject-only** (sem parágrafo de corpo) e com o
-footer de co-autoria do projeto. Ex.:
+Mensagem de commit: **em pt-br**, **conventional commits**, **subject-only** (sem
+parágrafo de corpo) e com o footer de co-autoria do projeto. Ex.:
 
 ```
 feat: adiciona compartilhamento de contatos no atendimento

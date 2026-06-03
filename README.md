@@ -17,6 +17,21 @@ When a single line of work spans 3+ repositories, it's easy to:
 
 pharmatree solves this with **convention + guiding documentation + one skill**.
 
+## Prerequisite: superpowers
+
+pharmatree wires in the [superpowers](https://github.com/obra/superpowers) plugin for
+Claude. pharmatree decides *where* work happens (which repo/worktree/branch);
+superpowers decides *how* it happens (brainstorming → planning → TDD → verification →
+finishing a branch). Install superpowers for Claude before using pharmatree.
+
+## Workflow rules
+
+- **Commits in pt-br**, conventional commits, **subject-only** (no body) + Co-Author footer.
+- **Unit tests run before every commit** (enforced by the `guard` procedure; must pass).
+- **Integration tests run at the end of each feature** (`finish-feature` procedure) —
+  only if the test environment is already up. The agent **never provisions infra**
+  (docker/migrations/seeds): if the env isn't ready, it reports what's missing and stops.
+
 ## Layout of a pharmatree base
 
 ```
@@ -46,7 +61,7 @@ Deterministic folder↔branch mapping: replace the **first** `-` with `/`.
 ```
 pharmatree/
 ├── skills/pharmatree/        ← the umbrella skill (SKILL.md + 4 procedures)
-│   └── references/           ← where-am-i · new-initiative · guard · doctor
+│   └── references/           ← where-am-i · new-initiative · guard · finish-feature · doctor
 ├── templates/                ← CLAUDE.root.md (orchestrator) · CLAUDE.worktree.md
 └── docs/                     ← approved design spec
 ```
@@ -71,6 +86,7 @@ pharmatree/
    - "where am I?" → `where-am-i`
    - "start a new initiative" → `new-initiative`
    - before committing → `guard`
+   - finished a feature → `finish-feature`
    - broken worktree → `doctor`
 
 ## Skill procedures
@@ -79,7 +95,8 @@ pharmatree/
 |---|---|---|
 | "where am I / resume" | `where-am-i` | Derives repo/branch/initiative live and reports it |
 | "create a new initiative" | `new-initiative` | Creates worktrees + branches on the convention, generates docs |
-| "I'm about to commit" | `guard` | Pre-commit checklist (folder==branch + blocks protected branches) |
+| "I'm about to commit" | `guard` | Pre-commit checklist (folder==branch, blocks protected branches, runs unit tests) |
+| "finished a feature" | `finish-feature` | Runs integration tests if the env is ready; never provisions infra |
 | "broken worktree / prunable" | `doctor` | Repairs prunable worktrees and regenerates the map |
 
 ## Principles
