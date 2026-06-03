@@ -23,19 +23,30 @@ The intelligence lives in a **skill**, and the source of truth is always **live 
 ### Setup (once, per base)
 
 1. **Install superpowers** for Claude (prerequisite — the development workflow).
-2. **Install the skill** in your base:
+2. **Install & authenticate the GitHub CLI** (`gh`) — required for the `review-pr`
+   procedure (creating/reviewing PRs). The `review-pr` flow **halts** if `gh` is
+   not authenticated.
+   ```bash
+   # install (pick your platform)
+   sudo apt install gh        # Debian/Ubuntu
+   brew install gh            # macOS
+   # then log in
+   gh auth login
+   gh auth status             # should report "Logged in to github.com"
+   ```
+3. **Install the skill** in your base:
    ```bash
    mkdir -p <base>/.claude/skills
    ln -s <path>/pharmatree/skills/pharmatree <base>/.claude/skills/pharmatree
    ```
-3. **Create the orchestrator** at the base root:
+4. **Create the orchestrator** at the base root:
    ```bash
    cp <path>/pharmatree/templates/CLAUDE.root.md <base>/CLAUDE.md
    ln -sf CLAUDE.md <base>/AGENTS.md
    ```
    Fill in repos, roles, and the Active Initiatives map.
-4. **Restart** your Claude Code session so the skill becomes invocable.
-5. Type **`/pharmatree`** (or just ask in natural language) — you're ready.
+5. **Restart** your Claude Code session so the skill becomes invocable.
+6. Type **`/pharmatree`** (or just ask in natural language) — you're ready.
 
 ### Cheatsheet — what you say → what happens
 

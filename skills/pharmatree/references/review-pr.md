@@ -1,10 +1,11 @@
 # Procedimento: review-pr (review multi-agente por dimensão)
 
-Use **após abrir a PR de um repo** de uma frente. Dispara um **subagente read-only
-por dimensão** (em paralelo), consolida os achados, aplica os fixes por severidade,
-roda regressão e **itera no máximo 2 vezes**. Encerra commitando os fixes, postando
-comentários inline na PR e entregando um resumo. **Nunca faz merge** e **nunca sobe
-infra**.
+Use **ao criar a PR de um repo** (após implementar o plano e ter aprovação do
+usuário) ou ao revisar uma PR já aberta. Cria a PR no **padrão do projeto**, dispara
+um **subagente read-only por dimensão** (em paralelo), consolida os achados, aplica
+os fixes por severidade, roda regressão e **itera no máximo 2 vezes**. Encerra
+commitando os fixes, postando comentários inline na PR e entregando um resumo.
+**Nunca faz merge** e **nunca sobe infra**.
 
 Escopo: **uma rodada por PR/repo** — opera sobre o diff de um único repo.
 
@@ -13,17 +14,50 @@ Escopo: **uma rodada por PR/repo** — opera sobre o diff de um único repo.
 ### 1. Pré-condição (`where-am-i`)
 
 Confirme o contexto com `where-am-i`. A worktree atual DEVE estar em
-`worktrees/<frente>/<repo>/`, na branch `<type>/<slug>`, e a PR DEVE existir:
+`worktrees/<frente>/<repo>/`, na branch `<type>/<slug>`. Se estiver num repo raiz
+ou em branch protegida → **pare** (mesmas regras do `guard`).
 
 ```bash
 git rev-parse --show-toplevel        # dentro de worktrees/<frente>/<repo>
 git rev-parse --abbrev-ref HEAD      # <type>/<slug>
-gh pr view --json number,baseRefName,headRefName,url
+gh pr view --json number,baseRefName,headRefName,url   # já existe PR?
 ```
 
-Se não houver PR aberta para esta branch → **pare e reporte** (este procedimento
-revisa PR; abra a PR primeiro). Se estiver num repo raiz ou em branch protegida →
-**pare** (mesmas regras do `guard`).
+### 1.1. Criar a PR (padrão do projeto)
+
+**Antes de tudo, exija autenticação do `gh`:**
+
+```bash
+gh auth status
+```
+
+Se o `gh` **não estiver autenticado** (comando falha / "not logged in") →
+**TRAVE e retorne**:
+
+> ⛔ `gh` não autenticado. Rode `gh auth login` (ou `! gh auth login` neste chat)
+> antes de criar/revisar a PR. Veja o Setup do framework (README) para instalar e
+> logar o GitHub CLI.
+
+Não tente criar a PR sem autenticação.
+
+Se **ainda não existe** PR para a branch atual (e o plano já foi implementado e
+**aprovado pelo usuário**), crie-a seguindo o **padrão fixo**:
+
+- **head** = **branch atual** (`<type>/<slug>`).
+- **base** = **`develop`**.
+- Usar o **template de PR** do repo (`.github/PULL_REQUEST_TEMPLATE.md`, se existir)
+  como corpo, preenchido.
+
+```bash
+gh pr create --base develop --head "$(git rev-parse --abbrev-ref HEAD)" \
+  --title "<conventional, pt-br>" --body-file .github/PULL_REQUEST_TEMPLATE.md
+```
+
+> **⛔ Base e destino são fixos (`branch atual → develop`).** Só troque a base ou o
+> destino se isso estiver **EXPLICITAMENTE escrito no prompt** do usuário (ex.:
+> "abra a PR para `main`"). Sem instrução explícita, **sempre** `develop`.
+
+Se a PR já existir, siga direto para o passo 2.
 
 ### 2. Coleta do diff
 
