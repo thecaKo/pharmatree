@@ -28,6 +28,8 @@
   pasta==branch e **unit tests verdes** são exigidos).
 - Commits em **pt-br**, conventional, **subject-only** (sem body) + footer Co-Author.
 - Ao fim da feature, rode o `finish-feature` (testes de integração).
+- **Se este repo for `neo-api`:** priorize a documentação — consulte a doc primeiro e
+  só vá ao código-fonte **se precisar de mais contexto** (economiza tokens).
 
 ## Contexto multi-repo
 

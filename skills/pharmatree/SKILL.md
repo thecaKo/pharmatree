@@ -55,6 +55,8 @@ Mapeamento determinístico pasta↔branch: trocar o **primeiro** `-` por `/`.
 5. **Commits em pt-br**, conventional commits, **subject-only** (sem body) + footer
    Co-Author.
 6. **A verdade vem do git ao vivo** (`git rev-parse`), nunca de um arquivo salvo.
+7. **No repo `neo-api`, priorize a documentação.** Consulte a doc do repo primeiro e
+   só recorra ao código-fonte **se precisar de mais contexto** — economiza tokens.
 
 ## Workflow de desenvolvimento (superpowers)
 

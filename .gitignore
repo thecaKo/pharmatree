@@ -15,6 +15,7 @@ tmp/
 worktrees/
 
 # Repositórios da base (clonados aqui, não versionar dentro do pharmatree)
+pharma-agent-v2/
 api-baileys-pharmachatbot/
 api-pharmachatbot/
 api-report-pharmachatbot/
