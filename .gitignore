@@ -10,3 +10,38 @@ Thumbs.db
 # Logs / temporários
 *.log
 tmp/
+
+# Worktrees gerenciados pelo pharmatree
+worktrees/
+
+# Repositórios da base (clonados aqui, não versionar dentro do pharmatree)
+api-baileys-pharmachatbot/
+api-pharmachatbot/
+api-report-pharmachatbot/
+Baileys-pharma-chat-bot/
+Baileys-pharma-chat-bot-6.7.16/
+BaileysLid/
+campaigns-pharmachatbot/
+db-pharmachatbot/
+desafio-nodejs/
+docs/
+e2e-argo-runner/
+infra-pharma-chat-bot/
+infra-pharma-chat-bot-dev/
+infra-pharma-chat-bot-staging/
+instagram-workers/
+media-pharmachatbot/
+messages-api-proxy-pharmachatbot/
+messaging-pharmachatbot/
+meta-webhook-proxy/
+motor-automacao/
+neo-api-pharmachatbot/
+Notifications-oracle/
+Pharma-brain/
+pharmachat-bot-tests/
+remove-bg-pharmachatbot/
+web-pharmachatbot/
+whatsapp-comunication-module/
+whatsapp-webhook-proxy/
+.github/
+.github-private/
