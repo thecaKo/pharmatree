@@ -4,8 +4,9 @@ Use **ao criar a PR de um repo** (após implementar o plano e ter aprovação do
 usuário) ou ao revisar uma PR já aberta. Cria a PR no **padrão do projeto**, dispara
 um **subagente read-only por dimensão** (em paralelo), consolida os achados, aplica
 os fixes por severidade, roda regressão e **itera no máximo 2 vezes**. Encerra
-commitando os fixes, postando comentários inline na PR e entregando um resumo.
-**Nunca faz merge** e **nunca sobe infra**.
+commitando os fixes, postando **um comentário por achado** na PR (com marcação
+`APLICADO`/`NÃO APLICADO`) e entregando um resumo. **Nunca faz merge** e **nunca sobe
+infra**.
 
 Escopo: **uma rodada por PR/repo** — opera sobre o diff de um único repo.
 
@@ -120,11 +121,15 @@ várias dimensões vira **um** item (registre as dimensões que convergiram).
 ### 5. Aplicação por severidade
 
 - **low / medium →** aplique o fix **automaticamente** no worktree (edições
-  sequenciais, você mesmo).
+  sequenciais, você mesmo). Marca → `APLICADO`.
 - **high (regra de negócio) →** **NÃO aplique**. São achados que mudam regra de
   negócio / comportamento observável do produto, ou decisão de arquitetura não
-  trivial. Para cada um: poste comentário inline na PR (passo 8) e **peça permissão
-  explícita** antes de qualquer edição.
+  trivial. Para cada um: **peça permissão explícita** antes de qualquer edição.
+  Marca → `NÃO APLICADO`.
+
+**Independente da severidade, TODO achado vira comentário na PR** (passo 8) — o que
+muda é só a marcação (`APLICADO` para os que você corrigiu, `NÃO APLICADO` para os
+que ficaram pendentes/aguardando permissão).
 
 ### 6. Regressão (após aplicar os fixes)
 
@@ -149,10 +154,36 @@ atualizado).
 **Máximo de 2 iterações.** Na 2ª, **encerre** mesmo que restem pendências — elas
 viram itens reportados (passos 8 e 9), não bloqueio.
 
-### 8. Comentários inline na PR
+### 8. Comentários na PR — **1 comentário = 1 problema**
 
-Poste os achados como comentários inline na PR via `gh`, destacando os **HIGH
-pendentes** com o pedido de permissão para aplicar.
+Poste **todos os achados** como comentários na PR via `gh`, **independente da
+severidade** (low, medium ou high). Regras:
+
+- **1 comentário = 1 problema.** Não junte vários achados num comentário só.
+- **Filtre e concatene os parecidos.** Achados que são o **mesmo problema** (mesma
+  causa, mesmo arquivo/área, ou que se resolvem com o mesmo fix) viram **um único**
+  comentário. Use isso para reduzir ruído.
+- **Máximo de 10 comentários por PR.** Se após a deduplicação/concatenação sobrarem
+  mais de 10, **priorize por severidade** (high > medium > low) e **agrupe o
+  excedente** em comentários temáticos até caber no teto. Nunca ultrapasse 10.
+- **Cada comentário começa com a marcação:**
+  - `✅ APLICADO` — fix já aplicado no worktree (low/medium).
+  - `⛔ NÃO APLICADO` — pendente; high de regra de negócio aguardando permissão, ou
+    excedente não corrigido. Para os HIGH, inclua o **pedido de permissão** para
+    aplicar.
+
+**Formato de cada comentário:**
+
+```
+<✅ APLICADO | ⛔ NÃO APLICADO> · <dimensão> · <severidade>
+
+<descrição objetiva do problema>
+
+Fix: <o que foi feito, ou o que se sugere fazer>
+```
+
+Poste preferencialmente **inline** (ancorado em `arquivo:linha`); caia para
+comentário geral da PR só quando a âncora não se aplicar.
 
 ### 9. Encerramento
 
@@ -161,12 +192,15 @@ pendentes** com o pedido de permissão para aplicar.
   commits**, **subject-only** + footer Co-Author. Ex.:
   `fix: corrige edge cases apontados no review da PR`.
 - **Resumo no chat** — tabela por **dimensão × severidade** (aplicados × pendentes),
-  nº de iterações e status da regressão.
+  nº de comentários postados (lembrando: teto de 10), nº de iterações e status da
+  regressão.
 - **Não faça merge.** Para fechar a branch, use `finish-feature` /
   `superpowers:finishing-a-development-branch`.
 
 ## Regra de ouro
 
 Os subagentes **só observam e reportam**; quem edita é o orquestrador, e só nas
-severidades low/medium. **HIGH (regra de negócio) sempre pede permissão.** Nunca
-mais que **2 iterações**. Nunca merge, nunca subir infra.
+severidades low/medium. **HIGH (regra de negócio) sempre pede permissão.** **Todo
+achado vira comentário na PR (1 comentário = 1 problema, marcado `APLICADO`/`NÃO
+APLICADO`), concatenando os parecidos e no máximo 10 por PR.** Nunca mais que **2
+iterações**. Nunca merge, nunca subir infra.
