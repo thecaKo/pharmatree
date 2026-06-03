@@ -15,6 +15,12 @@ Derivados:
 
 Se algum dado faltar, **pergunte** antes de criar.
 
+> **Prompt seco → pergunte o nome.** Se o pedido vier vago (ex.: "preciso iniciar
+> um novo projeto", "criar uma frente nova"), **não invente** o nome da pasta/branch.
+> Pergunte ao usuário o **nome que deve dar à frente** (o `slug` kebab-case) e, se não
+> der para inferir, também o `type`. Pasta e branch derivam disso
+> (`worktrees/<type>-<slug>/` e branch `<type>/<slug>`). Só prossiga após a resposta.
+
 > **Sempre pergunte QUAIS repos incluir.** Mesmo que o usuário não tenha
 > especificado, **não assuma** a lista de `repos` — descubra os repos disponíveis na
 > base (passo 1) e **pergunte explicitamente** ao usuário quais ele quer clonar como
