@@ -51,10 +51,10 @@ Mapeamento determinístico pasta↔branch: trocar o **primeiro** `-` por `/`.
 
 | Intenção | Procedimento | Arquivo |
 |---|---|---|
-| "Onde estou? Qual repo/branch? Me perdi / retomar" | **onde-estou** | `references/onde-estou.md` |
-| "Criar uma frente nova multi-repo" | **nova-frente** | `references/nova-frente.md` |
+| "Onde estou? Qual repo/branch? Me perdi / retomar" | **where-am-i** | `references/where-am-i.md` |
+| "Criar uma frente nova multi-repo" | **new-initiative** | `references/new-initiative.md` |
 | "Vou commitar / posso commitar aqui?" | **guard** | `references/guard.md` |
 | "Worktree quebrada / prunable / sincronizar mapa" | **doctor** | `references/doctor.md` |
 
 Leia o arquivo de referência correspondente e siga-o passo a passo. Em dúvida sobre
-contexto, comece **sempre** por `onde-estou`.
+contexto, comece **sempre** por `where-am-i`.

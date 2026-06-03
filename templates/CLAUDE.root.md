@@ -21,7 +21,7 @@ quando estiver alternando entre frentes.
 3. **Antes de QUALQUER commit nesta base, invoque a skill `pharmatree`** e siga o
    procedimento `guard`.
 4. Se você se perder ("onde estou? que repo/branch é esse?"), invoque a skill
-   `pharmatree` → procedimento `onde-estou`.
+   `pharmatree` → procedimento `where-am-i`.
 
 ## Topologia
 
@@ -57,7 +57,7 @@ footer de co-autoria.
 
 | Preciso… | Procedimento |
 |---|---|
-| me localizar / retomar uma frente | `onde-estou` |
-| criar uma frente nova multi-repo | `nova-frente` |
+| me localizar / retomar uma frente | `where-am-i` |
+| criar uma frente nova multi-repo | `new-initiative` |
 | commitar (checklist obrigatório) | `guard` |
 | consertar worktree quebrada / sincronizar este mapa | `doctor` |
