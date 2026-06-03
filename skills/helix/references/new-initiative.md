@@ -45,15 +45,23 @@ Se algum dado faltar, **pergunte** antes de criar.
    mkdir -p worktrees/<type>-<slug>
    ```
 
-3. **Para cada repo da lista**, crie a worktree já na branch nova:
+3. **Para cada repo da lista**, crie a worktree já na branch nova, **sempre
+   partindo da branch `develop` atualizada do repo raiz** (nunca da branch em que
+   o repo raiz estiver no momento). Primeiro atualize `develop`:
 
    ```bash
-   git -C <repo> worktree add "worktrees/<type>-<slug>/<repo>" -b "<type>/<slug>"
+   git -C <repo> fetch origin develop
+   ```
+   Então crie a worktree baseando a branch nova em `origin/develop`:
+   ```bash
+   git -C <repo> worktree add "worktrees/<type>-<slug>/<repo>" -b "<type>/<slug>" origin/develop
    ```
    Se a branch já existir (frente retomada), troque por:
    ```bash
    git -C <repo> worktree add "worktrees/<type>-<slug>/<repo>" "<type>/<slug>"
    ```
+   Se algum repo não tiver a branch `develop`, **pare e pergunte ao usuário** de
+   qual branch base partir — não assuma `main`/`master`.
 
 3b. **Copie os arquivos de ambiente** do repo raiz para a worktree, **apenas se
    existirem** (`.env` e `.env.test` ficam fora do git, então não vêm na worktree).
@@ -102,3 +110,6 @@ Se algum dado faltar, **pergunte** antes de criar.
 - `git -C <repo> worktree list` deve mostrar a nova worktree no caminho correto, na
   branch `<type>/<slug>`, sem `prunable`.
 - Confirme que a subpasta tem **o nome exato do repo** (não um apelido).
+- Confirme que a branch nova partiu de `develop`: `git -C "worktrees/<type>-<slug>/<repo>"
+  merge-base --is-ancestor origin/develop HEAD` deve retornar sucesso (a nova branch
+  contém o topo de `origin/develop`).

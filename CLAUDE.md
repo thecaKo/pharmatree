@@ -39,6 +39,10 @@ plugin superpowers (brainstorming → writing-plans → TDD → verification →
 finishing-a-development-branch).
 
 **Ao criar worktrees, sempre:**
+- **Partir da branch `develop`** atualizada do repo raiz (faça `git fetch origin
+  develop` e baseie a branch nova em `origin/develop`) — nunca da branch em que o
+  repo raiz estiver no momento. Se o repo não tiver `develop`, pergunte qual branch
+  base usar (não assuma `main`/`master`).
 - **Instalar as dependências** em cada worktree (detectando o gerenciador pelo
   lockfile — pnpm/yarn/npm/poetry/pip — sem assumir npm).
 - **Copiar `.env` e `.env.test`** do repo raiz para a worktree **apenas se
