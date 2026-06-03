@@ -1,6 +1,6 @@
-# pharmatree
+# helix
 
-Repositório do framework **pharmatree** (skill + templates + docs para orquestrar
+Repositório do framework **helix** (skill + templates + docs para orquestrar
 trabalho multi-repo com git worktrees).
 
 ## ⛔ Regra de design de frontend (prioridade máxima)
@@ -28,11 +28,13 @@ do `web-pharmachatbot`.
 | Frente | Repos | Branch | Status |
 |---|---|---|---|
 | feat-atendimentos-v2-reborn | web-pharmachatbot, neo-api-pharmachatbot, api-pharmachatbot, api-baileys-pharmachatbot, messaging-pharmachatbot | feat/atendimentos-v2-reborn | em andamento — tela de Atendimentos v2 ("reborn") sob feature flag |
+| feat-dashboard-v2 | web-pharmachatbot, neo-api-pharmachatbot | feat/dashboard-v2 | em andamento — Dashboard v2 (neo padronizado a partir de origin/neo-dashboard) |
+| feat-pharma-agent-v2 | pharma-agent-v2, web-pharmachatbot, neo-api-pharmachatbot | feat/pharma-agent-v2 | em andamento — desenvolvimento do pharma-agent-v2 (web + neo) |
 
-## Skill pharmatree
+## Skill helix
 
 Para orquestração multi-repo (criar frente, localizar-se, commitar, fechar feature,
-reparar worktrees), invoque a skill `pharmatree`. Workflow de desenvolvimento usa o
+reparar worktrees), invoque a skill `helix`. Workflow de desenvolvimento usa o
 plugin superpowers (brainstorming → writing-plans → TDD → verification →
 finishing-a-development-branch).
 

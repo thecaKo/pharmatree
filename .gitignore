@@ -11,10 +11,10 @@ Thumbs.db
 *.log
 tmp/
 
-# Worktrees gerenciados pelo pharmatree
+# Worktrees gerenciados pelo helix
 worktrees/
 
-# Repositórios da base (clonados aqui, não versionar dentro do pharmatree)
+# Repositórios da base (clonados aqui, não versionar dentro do helix)
 pharma-agent-v2/
 api-baileys-pharmachatbot/
 api-pharmachatbot/

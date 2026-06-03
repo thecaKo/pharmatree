@@ -1,5 +1,5 @@
 <!--
-  TEMPLATE — CLAUDE.md por-repo-worktree (pharmatree).
+  TEMPLATE — CLAUDE.md por-repo-worktree (helix).
   Gerado pela skill (procedimento nova-frente) em worktrees/<frente>/<repo>/CLAUDE.md.
   Crie AGENTS.md como symlink ao lado:  ln -sf CLAUDE.md AGENTS.md
 -->
@@ -24,7 +24,7 @@
 
 - Commit **só aqui**, na branch **`<type>/<slug>`**.
 - **Não** toque no repo raiz `<repo>/` (origem) — ele é imutável.
-- Antes de commitar, rode o `guard` da skill `pharmatree` (branch protegida,
+- Antes de commitar, rode o `guard` da skill `helix` (branch protegida,
   pasta==branch e **unit tests verdes** são exigidos).
 - Commits em **pt-br**, conventional, **subject-only** (sem body) + footer Co-Author.
 - Ao fim da feature, rode o `finish-feature` (testes de integração).

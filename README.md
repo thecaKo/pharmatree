@@ -1,11 +1,11 @@
 <div align="center">
 <pre>
-______ _   _   ___  _________  ___  ___ ___________ _____ _____ 
-| ___ \ | | | / _ \ | ___ \  \/  | / _ \_   _| ___ \  ___|  ___|
-| |_/ / |_| |/ /_\ \| |_/ / .  . |/ /_\ \| | | |_/ / |__ | |__  
-|  __/|  _  ||  _  ||    /| |\/| ||  _  || | |    /|  __||  __| 
-| |   | | | || | | || |\ \| |  | || | | || | | |\ \| |___| |___ 
-\_|   \_| |_/\_| |_/\_| \_\_|  |_/\_| |_/\_/ \_| \_\____/\____/ 
+ _   _  _____  _      _ __   __
+| | | ||  ___|| |    | |\ \ / /
+| |_| || |__  | |    | | \ V / 
+|  _  ||  __| | |    | |  > <  
+| | | || |___ | |___ | | / . \ 
+|_| |_||_____||_____||_|/_/ \_\
 </pre>
 
 **Orchestrate work across multiple repositories at the same time, using git worktrees.**
@@ -37,16 +37,16 @@ The intelligence lives in a **skill**, and the source of truth is always **live 
 3. **Install the skill** in your base:
    ```bash
    mkdir -p <base>/.claude/skills
-   ln -s <path>/pharmatree/skills/pharmatree <base>/.claude/skills/pharmatree
+   ln -s <path>/helix/skills/helix <base>/.claude/skills/helix
    ```
 4. **Create the orchestrator** at the base root:
    ```bash
-   cp <path>/pharmatree/templates/CLAUDE.root.md <base>/CLAUDE.md
+   cp <path>/helix/templates/CLAUDE.root.md <base>/CLAUDE.md
    ln -sf CLAUDE.md <base>/AGENTS.md
    ```
    Fill in repos, roles, and the Active Initiatives map.
 5. **Restart** your Claude Code session so the skill becomes invocable.
-6. Type **`/pharmatree`** (or just ask in natural language) — you're ready.
+6. Type **`/helix`** (or just ask in natural language) — you're ready.
 
 ### Cheatsheet — what you say → what happens
 
@@ -62,10 +62,10 @@ The intelligence lives in a **skill**, and the source of truth is always **live 
 
 ```
 brainstorming → writing-plans          (superpowers — the "how")
-  → /pharmatree new-initiative          (creates worktrees + branch)
+  → /helix new-initiative          (creates worktrees + branch)
   → implement via TDD                   (superpowers)
-  → /pharmatree guard   (unit tests + commit)  ⟲ repeat per task
-  → /pharmatree finish-feature          (integration tests)
+  → /helix guard   (unit tests + commit)  ⟲ repeat per task
+  → /helix finish-feature          (integration tests)
   → finishing-a-development-branch       (merge / PR)
 ```
 
@@ -81,16 +81,16 @@ When a single line of work spans 3+ repositories, it's easy to:
 - spin up new lines of work inconsistently;
 - get lost when juggling 2-3 parallel efforts.
 
-pharmatree solves this with **convention + guiding documentation + one skill**.
+helix solves this with **convention + guiding documentation + one skill**.
 
 ---
 
 ## Prerequisite: superpowers
 
-pharmatree wires in the [superpowers](https://github.com/obra/superpowers) plugin for
-Claude. pharmatree decides *where* work happens (which repo/worktree/branch);
+helix wires in the [superpowers](https://github.com/obra/superpowers) plugin for
+Claude. helix decides *where* work happens (which repo/worktree/branch);
 superpowers decides *how* it happens (brainstorming → planning → TDD → verification →
-finishing a branch). Install superpowers for Claude before using pharmatree.
+finishing a branch). Install superpowers for Claude before using helix.
 
 ---
 
@@ -104,7 +104,7 @@ finishing a branch). Install superpowers for Claude before using pharmatree.
 
 ---
 
-## Layout of a pharmatree base
+## Layout of a helix base
 
 ```
 <base>/                              root · CLAUDE.md = ORCHESTRATOR (+ AGENTS.md)
@@ -133,8 +133,8 @@ Deterministic folder↔branch mapping: replace the **first** `-` with `/`.
 ## What's in this repo
 
 ```
-pharmatree/
-├── skills/pharmatree/        ← the umbrella skill (SKILL.md + 4 procedures)
+helix/
+├── skills/helix/        ← the umbrella skill (SKILL.md + 4 procedures)
 │   └── references/           ← where-am-i · new-initiative · guard · finish-feature · doctor
 ├── templates/                ← CLAUDE.root.md (orchestrator) · CLAUDE.worktree.md
 └── docs/                     ← approved design spec
@@ -147,13 +147,13 @@ pharmatree/
 1. **Install the skill** in the base (or globally). For example, in the base:
    ```bash
    mkdir -p <base>/.claude/skills
-   ln -s <path>/pharmatree/skills/pharmatree <base>/.claude/skills/pharmatree
+   ln -s <path>/helix/skills/helix <base>/.claude/skills/helix
    ```
    (or copy the folder if you'd rather not use a symlink.)
 
 2. **Create the orchestrator** at the base root from the template:
    ```bash
-   cp <path>/pharmatree/templates/CLAUDE.root.md <base>/CLAUDE.md
+   cp <path>/helix/templates/CLAUDE.root.md <base>/CLAUDE.md
    ln -sf CLAUDE.md <base>/AGENTS.md
    ```
    Fill in the repos, their roles, and the Active Initiatives map.
