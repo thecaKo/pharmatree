@@ -1,0 +1,20 @@
+{
+  "user_name": "Carlos Felix - Dev 3",
+  "board_ids": ["18391375493"],
+  "_board_note": "Desenvolvimento 💨",
+  "columns": {
+    "people_resp": "multiple_person_mkyf9ade",
+    "people_par": "multiple_person_mkyfp954",
+    "status": "color_mkyf5xha",
+    "priority": "color_mkyf6v20",
+    "date": "date_mkyfzwn7"
+  },
+  "status_categories": {
+    "teste_reprovado": ["Teste reprovado"],
+    "code_review": ["Code Review"],
+    "em_andamento": ["Em Atividade", "Em Teste", "correções", "Update"],
+    "a_fazer": ["Backlog", "Próxima Sprint", "Sprint Atual", "Atividades em paralelo"],
+    "concluido": ["Concluído", "Task Aprovada", "Descaracterizado"]
+  },
+  "priority_order": ["Urgente", "Alta", "Média", "Baixa"]
+}
