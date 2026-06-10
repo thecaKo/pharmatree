@@ -48,6 +48,36 @@ The intelligence lives in a **skill**, and the source of truth is always **live 
 5. **Restart** your Claude Code session so the skill becomes invocable.
 6. Type **`/helix`** (or just ask in natural language) — you're ready.
 
+#### Optional: post review comments as a bot (GitHub App)
+
+By default the `review-pr` flow comments under the logged-in `gh` account (yours).
+To post review comments as a dedicated bot (`<app>[bot]`) instead — keeping your own
+identity for authoring the PR — set up a **GitHub App**:
+
+1. **Create the App**: org/user → *Settings → Developer settings → GitHub Apps →
+   New GitHub App*. Permissions: **Pull requests: Read & write** (and *Contents:
+   Read* if you want diff access). Disable the webhook. Install scope: *Only on this
+   account*. After creating, note the **App ID** (top of the App settings page).
+2. **Generate a private key**: same page → *Private keys → Generate a private key*
+   → save the `.pem` somewhere safe (e.g. `~/.helix/helix-bot.pem`). Never commit it.
+3. **Install the App** on the repos it should comment on. The **Installation ID** is
+   the number at the end of the install URL
+   (`.../settings/installations/<INSTALL_ID>`), or run
+   `gh token installations --app-id <APP_ID> --key <PEM>`.
+4. **Install the token helper** and store the config:
+   ```bash
+   gh extension install actions/gh-token
+   mkdir -p ~/.helix && cat > ~/.helix/bot.env <<'EOF'
+   HELIX_BOT_APP_ID=123456
+   HELIX_BOT_KEY_PATH=/home/you/.helix/helix-bot.pem
+   HELIX_BOT_INSTALL_ID=12345678
+   EOF
+   ```
+5. The `review-pr` flow auto-detects this at the comment step and runs
+   `eval "$(scripts/helix-bot-token.sh)"` to mint a ~1h installation token. **No
+   config → it silently falls back to your `gh` account** (only the comment identity
+   changes, never the ability to comment).
+
 ### Cheatsheet — what you say → what happens
 
 | You say… | Procedure | What happens |

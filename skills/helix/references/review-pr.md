@@ -156,6 +156,21 @@ viram itens reportados (passos 8 e 9), não bloqueio.
 
 ### 8. Comentários na PR — **1 comentário = 1 problema**
 
+**Identidade do bot (opcional).** Por padrão os comentários saem na conta logada no
+`gh` (a do usuário). Para postá-los como um **GitHub App** (`<app>[bot]`), gere um
+installation token **só para o passo de comentar**:
+
+```bash
+eval "$(scripts/helix-bot-token.sh)"   # exporta GH_TOKEN do App (vale ~1h)
+```
+
+- Se o script existir e a config estiver completa (env `HELIX_BOT_*` ou
+  `~/.helix/bot.env`) → os `gh pr comment`/`gh api` deste passo usam o **bot**.
+- Se o script falhar ou não houver config → **caia no `gh` do usuário** (não trave;
+  é só a identidade do comentário que muda, não a capacidade de comentar).
+- A **criação da PR** (passo 1.1) continua na conta do usuário — só os comentários
+  de review usam o bot. Veja o setup do App no README.
+
 Poste **todos os achados** como comentários na PR via `gh`, **independente da
 severidade** (low, medium ou high). Regras:
 

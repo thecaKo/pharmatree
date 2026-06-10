@@ -11,6 +11,11 @@ Thumbs.db
 *.log
 tmp/
 
+# Credenciais do GitHub App (review-pr bot) — NUNCA versionar
+.helix/
+*.pem
+bot.env
+
 # Worktrees gerenciados pelo helix
 worktrees/
 
