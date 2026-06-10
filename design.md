@@ -53,6 +53,15 @@ colors:
   # Estados de botão (verde/vermelho de sucesso/erro)
   state-success: '#16a34a'
   state-error: '#dc2626'
+  # Categorias de relatório (Relatórios v2)
+  report-cat-atendimento-accent: '#e6284a'
+  report-cat-atendimento-accent2: '#f15976'
+  report-cat-clientes-accent: '#f0508a'
+  report-cat-clientes-accent2: '#ff7eb0'
+  report-cat-engajamento-accent: '#f06a45'
+  report-cat-engajamento-accent2: '#ff9166'
+  report-cat-financeiro-accent: '#c4407e'
+  report-cat-financeiro-accent2: '#e668a8'
 typography:
   font-family-default: 'Montserrat, sans-serif'
   font-family-title: 'Poppins, sans-serif'
@@ -200,6 +209,23 @@ tooltip: fundo `#00000090`, texto `#ffffff`.
 > ⚠️ A paleta de dados é **categórica e vibrante de propósito** e vive isolada nos
 > gráficos. **Não** use essas cores em botões, textos ou superfícies de UI — a UI usa
 > apenas marca + neutros + semânticas.
+
+### Ícones/gradientes de categoria — Relatórios v2
+
+Tokens de **ícone/gradiente de categoria do catálogo de Relatórios v2**. Cada
+categoria possui dois tons (`accent` e `accent2`) que compõem o gradiente do ícone
+via `linear-gradient(135deg, accent, accent2)`.
+
+| Categoria | `accent` | `accent2` |
+|---|---|---|
+| `report-cat-atendimento` | `#e6284a` (primary-base) | `#f15976` (primary-light) |
+| `report-cat-clientes` | `#f0508a` | `#ff7eb0` |
+| `report-cat-engajamento` | `#f06a45` | `#ff9166` |
+| `report-cat-financeiro` | `#c4407e` | `#e668a8` |
+
+> ⚠️ **Uso exclusivo nos ícones/gradientes do catálogo de relatórios — nunca em
+> botões, texto ou superfícies de UI.** Para ação, use sempre `primary-base`; para
+> semântica, use a escala `success/danger/warning/info`.
 
 ### Dark mode
 Há tema escuro completo (`html[data-theme='dark']`): `white`→`#2d2e2f`,
