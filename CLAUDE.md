@@ -3,6 +3,27 @@
 Repositório do framework **helix** (skill + templates + docs para orquestrar
 trabalho multi-repo com git worktrees).
 
+## ⛔ Regra de idioma (prioridade máxima)
+
+**TODA a comunicação entre usuário e IA DEVE ser feita ESTRITAMENTE em português
+brasileiro.** A única exceção são termos técnicos e keywords (nomes de
+comandos, flags, APIs, nomes de variáveis/funções, palavras-chave de linguagens,
+jargão técnico consagrado em inglês), que podem permanecer no original.
+
+## ⛔ Regra: repos raiz SEMPRE em `develop` (prioridade máxima)
+
+**TODOS os repositórios raiz DEVEM permanecer ESTRITAMENTE na branch `develop`.**
+
+- Ao atualizar (`git pull`), localizar-se ou retomar trabalho, garanta que cada
+  repo raiz esteja em `develop` — nunca em `main`/`master` ou em qualquer feature
+  branch. Se algum estiver fora de `develop`, faça checkout de `develop` (após
+  verificar que não há alterações locais pendentes) e dê `git pull --ff-only`.
+- Branches de feature vivem nas **worktrees**, não nos repos raiz.
+- **Exceção:** repos que comprovadamente não possuem `develop` (atualmente
+  `e2e-argo-runner`, `infra-pharma-chat-bot`, `infra-pharma-chat-bot-dev`,
+  `infra-pharma-chat-bot-staging`) permanecem em `main`. Não crie `develop` nesses
+  sem pedir; se surgir um repo novo sem `develop`, pergunte qual branch base usar.
+
 ## ⛔ Regra de design de frontend (prioridade máxima)
 
 **Antes de QUALQUER alteração de design/UI no frontend, carregue o [`design.md`](./design.md)
@@ -23,12 +44,36 @@ da raiz e siga-o.**
 O `design.md` cobre as telas **Login**, **Dashboard (v2)** e **PharmaConnector**
 do `web-pharmachatbot`.
 
+## ⛔ Regra: alterações no Monday (prioridade máxima)
+
+**TODA e qualquer operação no Monday.com (ler ou alterar itens, colunas, status,
+grupos, updates/comentários) DEVE passar pela skill [`monday-api`](./skills/monday-api/SKILL.md).**
+
+- Nunca monte chamadas ad-hoc para `api.monday.com` — use o gateway `monday.sh` da skill.
+- Token só via env `MONDAY_API_TOKEN` (nunca hardcoded, nunca no git).
+- Operações destrutivas (delete/archive/alterações em massa) exigem confirmação do usuário.
+
+## ⛔ Regra: planos e execução via fast-plan / fast-exec
+
+**Nesta base, [`fast-plan`](./skills/fast-plan/SKILL.md) e
+[`fast-exec`](./skills/fast-exec/SKILL.md) SUBSTITUEM as skills
+`superpowers:writing-plans`, `superpowers:subagent-driven-development` e
+`superpowers:executing-plans`** (instruções do usuário têm prioridade sobre
+skills de plugin).
+
+- Fluxo SDD: `superpowers:brainstorming` → **`fast-plan`** → **`fast-exec`** →
+  `superpowers:finishing-a-development-branch`.
+- O handoff do brainstorming aponta para `fast-plan` (não writing-plans);
+  specs vão em `sdd/specs/`, planos em `sdd/plans/` (no hub — `docs/` é repo
+  clonado, gitignored).
+- Design da decisão: `sdd/specs/2026-06-10-fast-plan-exec-design.md`.
+
 ## Mapa de frentes ativas
 
 | Frente | Repos | Branch | Status |
 |---|---|---|---|
 | feat-atendimentos-v2-reborn | web-pharmachatbot, neo-api-pharmachatbot, api-pharmachatbot, api-baileys-pharmachatbot, messaging-pharmachatbot | feat/atendimentos-v2-reborn | em andamento — tela de Atendimentos v2 ("reborn") sob feature flag |
-| feat-dashboard-v2 | web-pharmachatbot, neo-api-pharmachatbot | feat/dashboard-v2 | em andamento — Dashboard v2 (neo padronizado a partir de origin/neo-dashboard) |
+| feat-dashboard-v2 | web-pharmachatbot, neo-api-pharmachatbot, api-pharmachatbot | feat/dashboard-v2 | em andamento — Dashboard v2 (neo a partir de origin/neo-dashboard; api-pharmachatbot adicionado p/ migration Sequelize do schema `dashboard_outbox_events`) |
 | feat-pharma-agent-v2 | pharma-agent-v2, web-pharmachatbot, neo-api-pharmachatbot | feat/pharma-agent-v2 | em andamento — desenvolvimento do pharma-agent-v2 (web + neo) |
 
 ## Skill helix
