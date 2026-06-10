@@ -75,6 +75,7 @@ skills de plugin).
 | feat-atendimentos-v2-reborn | web-pharmachatbot, neo-api-pharmachatbot, api-pharmachatbot, api-baileys-pharmachatbot, messaging-pharmachatbot | feat/atendimentos-v2-reborn | em andamento — tela de Atendimentos v2 ("reborn") sob feature flag |
 | feat-dashboard-v2 | web-pharmachatbot, neo-api-pharmachatbot, api-pharmachatbot | feat/dashboard-v2 | em andamento — Dashboard v2 (neo a partir de origin/neo-dashboard; api-pharmachatbot adicionado p/ migration Sequelize do schema `dashboard_outbox_events`) |
 | feat-pharma-agent-v2 | pharma-agent-v2, web-pharmachatbot, neo-api-pharmachatbot | feat/pharma-agent-v2 | em andamento — desenvolvimento do pharma-agent-v2 (web + neo) |
+| feat-relatorios-v2 | web-pharmachatbot, neo-api-pharmachatbot, api-pharmachatbot | feat/relatorios-v2 | iniciada — Reconstrução - Relatórios (card Monday, Backlog); sem spec/plano ainda |
 
 ## Skill helix
 
