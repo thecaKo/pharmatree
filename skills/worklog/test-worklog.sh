@@ -31,14 +31,16 @@ run() { ( cd "$SCRIPT_DIR" && CONFIG_OVERRIDE="$CFG" bash -c '
 
 fail() { echo "FALHOU: $1" >&2; exit 1; }
 
-# 1) ensure-daily cria o arquivo com as 5 seções
+# 1) ensure-daily cria o arquivo com as 5 seções (layout minimal elegante)
 run ensure-daily 2026-06-09 >/dev/null
 F="$VAULT/daily/2026-06-09.md"
 [ -f "$F" ] || fail "daily não foi criada"
-for sec in "## Plano (a fazer)" "## Feito" "## Impedimentos" "## Decisões / Aprendizados" "## Para a daily de amanhã"; do
+for sec in "## 📋 Plano" "## ✅ Feito" "## 🚧 Impedimentos" "## 💡 Decisões / Aprendizados" "### 🗣️ Para a daily de amanhã"; do
   grep -qF "$sec" "$F" || fail "seção ausente: $sec"
 done
-grep -qF "# 2026-06-09 (terça)" "$F" || fail "cabeçalho/dia-da-semana errado"
+grep -qF "# 📅 09 jun · terça" "$F" || fail "cabeçalho/data legível errado"
+grep -qF "tags: [daily]" "$F" || fail "frontmatter sem tags"
+grep -qF "> [!abstract] Resumo do dia" "$F" || fail "callout de resumo ausente"
 
 # 2) idempotência: rodar de novo não duplica nem apaga
 before="$(md5sum "$F" | cut -d' ' -f1)"

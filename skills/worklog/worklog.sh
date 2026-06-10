@@ -40,6 +40,18 @@ weekday_pt() {
   esac
 }
 
+# Data legível pt-BR para o título: "DD mmm · dia-da-semana" (ex.: "09 jun · terça").
+daylabel_pt() {
+  local d="$1" dd mm
+  dd="$(date -d "$d" +%d 2>/dev/null || echo "$d")"
+  case "$(date -d "$d" +%m 2>/dev/null)" in
+    01) mm="jan";; 02) mm="fev";; 03) mm="mar";; 04) mm="abr";;
+    05) mm="mai";; 06) mm="jun";; 07) mm="jul";; 08) mm="ago";;
+    09) mm="set";; 10) mm="out";; 11) mm="nov";; 12) mm="dez";; *) mm="";;
+  esac
+  printf '%s %s · %s' "$dd" "$mm" "$(weekday_pt "$d")"
+}
+
 ensure_vault() {
   [ -d "$VAULT" ] || { echo "worklog.sh: vault não encontrada em $VAULT (veja config.json)" >&2; exit 1; }
   mkdir -p "$VAULT/raw" "$VAULT/daily" "$VAULT/frentes" "$VAULT/impedimentos" "$VAULT/retro"
@@ -50,24 +62,30 @@ ensure_daily() {
   ensure_vault
   local f="$VAULT/daily/$d.md"
   if [ -f "$f" ]; then echo "$f (já existe)"; return 0; fi
-  local dow; dow="$(weekday_pt "$d")"
+  local label; label="$(daylabel_pt "$d")"
   cat > "$f" <<EOF
 ---
 type: daily
 data: $d
+tags: [daily]
 ---
 
-# $d ($dow)
+# 📅 $label
 
-## Plano (a fazer)
+> [!abstract] Resumo do dia
+> _(N itens · N atrasados · foco em …)_
 
-## Feito
+## 📋 Plano
 
-## Impedimentos
+## ✅ Feito
 
-## Decisões / Aprendizados
+## 🚧 Impedimentos
 
-## Para a daily de amanhã
+## 💡 Decisões / Aprendizados
+
+---
+
+### 🗣️ Para a daily de amanhã
 EOF
   echo "$f (criado)"
 }

@@ -36,6 +36,18 @@ escrito majoritariamente pela IA, para o usuário ter material pronto pra **dail
   `export MONDAY_API_TOKEN="$(cat ~/.config/monday/token)"`.
 - `jq`, `git`. Vault em `~/Documents/WorkLog` (caminho em `config.json`).
 
+## Layout das notas (minimal elegante)
+
+Toda nota segue um estilo visual único, **nativo do Obsidian** (sem plugins): título
+enxuto com emoji + data legível (`# 📅 09 jun · terça`), um `> [!abstract]` de resumo
+logo abaixo, headers `##` com emoji-âncora fixo por seção (📋 Plano · ✅ Feito ·
+🚧 Impedimentos · 💡 Decisões), tasks `- [ ]` onde há progresso, prioridade por bolinha
+🔴🟡🟢, impedimento aberto em `> [!warning]` (resolvido em `> [!success]`), frontmatter
+limpo com `tags: [tipo]` e divisor `---` antes do bloco de fechamento. **A fonte de
+verdade do layout é a seção "Linguagem visual" + as "Anatomias" do `AGENTS.md` da
+vault** — leia-as antes de escrever. O esqueleto da daily nasce pronto via
+`ensure-daily`; frentes/impedimentos são os modelos vivos e há `retro/_template.md`.
+
 ## Procedimento (os 4 verbos)
 
 Rode os comandos a partir da pasta da skill. Sempre **leia o `AGENTS.md` da vault**
